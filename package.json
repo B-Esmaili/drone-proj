@@ -35,6 +35,7 @@
 		"@lucia-auth/adapter-postgresql": "^1.0.1",
 		"dotenv": "^16.3.1",
 		"drizzle-orm": "^0.27.2",
+		"flowbite-svelte": "^0.44.19",
 		"lucia-auth": "^1.8.0",
 		"pg": "^8.11.3",
 		"postgres": "^3.3.5"

@@ -1,11 +1,10 @@
 <script>
-	import Hero from "$lib/components/Hero.svelte";
-
-
+	import { Alert, Button } from 'flowbite-svelte';
 </script>
-<svelte:head>
-	<title>Sveltekit Lucia Drizzle ORM Template</title>
-	<meta name="description" content="SvelteKit - Lucia - Drizzle ORM Template">
-	<meta name="og:image" content="https://i.pinimg.com/564x/65/a3/80/65a380069c39b8d5327ce56390d69537.jpg">
-</svelte:head>
-<Hero />
+
+<div class="p-8">
+	<Alert>
+		<span class="font-medium">Info alert!</span>
+		Change a few things up and try submitting again.
+	</Alert> 
+</div>

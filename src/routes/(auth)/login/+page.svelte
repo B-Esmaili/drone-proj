@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { Button, Card, Input, Label } from 'flowbite-svelte';
 	import type { PageData } from './$types';
 	import { superForm } from 'sveltekit-superforms/client';
 
@@ -7,50 +8,46 @@
 	// Client API:
 	const { form } = superForm(data.form);
 </script>
+
 <svelte:head>
 	<title>Stable | Login</title>
-	<meta name="description" content="SvelteKit - Lucia - Drizzle ORM Template">
+	<meta name="description" content="SvelteKit - Lucia - Drizzle ORM Template" />
 </svelte:head>
-<div class="hero h-[90vh] bg-base-200">
-	<div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-		<div class="card-body">
-			<div class="flex justify-center">
-				<h1 class="text-2xl font-semibold">Login to Proceed</h1>
+<div class="h-screen flex items-center justify-center">
+	<!-- write following form using flowbite svelte -->
+	<Card class="w-full max-w-md">
+		<div class="flex justify-center">
+			<h1 class="text-2xl font-semibold">Login to Proceed</h1>
+		</div>
+		<form method="POST">
+			<div class="mb-6">
+				<Label for="email" class="block mb-2">Email</Label>
+				<Input
+					id="email"
+					name="email"
+					type="text"
+					placeholder="email"
+					class="input input-bordered"
+					bind:value={$form.email}
+				/>
 			</div>
-			<form method="POST">
-				<div class="form-control">
-					<label class="label" for="email">
-						<span class="label-text">Email</span>
-					</label>
-					<input
-						id="email"
-						name="email"
-						type="text"
-						placeholder="email"
-						class="input input-bordered"
-						bind:value={$form.email}
-					/>
-				</div>
-				<div class="form-control">
-					<label class="label" for="password">
-						<span class="label-text">Password</span>
-					</label>
-					<input
-						id="password"
-						bind:value={$form.password}
-						name="password"
-						type="text"
-						placeholder="password"
-						class="input input-bordered"
-					/>
-				</div>
-				<div class="form-control mt-6">
-					<button class="btn btn-primary">Login</button>
-				</div>
-			</form>
+			<div class="mb-6">
+				<Label for="password" class="block mb-2">Password</Label>
+				<Input
+					id="password"
+					name="password"
+					type="password"
+					placeholder="password"
+					class="input input-bordered"
+					bind:value={$form.password}
+				/>
+			</div>
+			<div class="form-control mt-6">
+				<Button class="btn btn-primary">Login</Button>
+			</div>
 			<div class="mt-2">
 				<p>No Account? <a href="/signup" class="text-blue-600 underline">SignUp</a></p>
 			</div>
-		</div>
-	</div>
+		</form>
+	</Card>
 </div>
