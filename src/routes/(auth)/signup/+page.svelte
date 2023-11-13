@@ -24,7 +24,7 @@
 </svelte:head>
 
 <div class="h-screen flex items-center justify-center">
-	<Card class="w-full max-w-md">
+	<Card class="w-full max-w-md bg-white">
 		<div class="flex justify-center">
 			<h1 class="text-2xl font-semibold">Create Account</h1>
 		</div>

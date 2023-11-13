@@ -1,7 +1,8 @@
 <script lang="ts">
-    import type { LayoutData } from './$types';
-    
-    export let data: LayoutData;
+	import Layout from "$lib/components/layouts/dashboard/layout.svelte";
+
 </script>
 
-<slot/>
+<Layout>
+    <slot/>
+</Layout>
