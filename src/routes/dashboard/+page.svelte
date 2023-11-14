@@ -5,7 +5,7 @@
 	<title>Stable | Dashboard</title>
 	<meta name="description" content="SvelteKit - Lucia - Drizzle ORM Template">
 </svelte:head>
-<div class="container px-32 py-4">
+<div>
 	<h1 class="text-4xl font-bold">Dashboard</h1>
 	{#if data.user!==null}
 		<!-- content here -->
