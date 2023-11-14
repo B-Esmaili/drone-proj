@@ -10,7 +10,17 @@
 			bg-gray-50
 			dark:bg-gray-900
 			min-h-screen">
-	<div class="fixed h-[calc(100vh-4em)] h-screen w-64 -translate-x-full md:translate-x-0">
+	<div id="sidebar"
+		 class="fixed
+	 			h-[calc(100vh-4em)]
+				h-screen
+				w-64 
+				-translate-x-full 								
+				[&.show]:translate-x-0
+				md:translate-x-0
+				transition-transform
+				ease-in-out
+				">
 		<Sidebar />
 	</div>
 	<div class="flex-1 md:ms-64 p-6">

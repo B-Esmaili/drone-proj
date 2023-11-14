@@ -1,4 +1,4 @@
-<a href="/" class="flex items-center gap-4">
+<a href="/" class="flex items-center gap-2">
 	<img alt="logo" src="./images/logo.svg" />
 	<span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white"
 		>Sveltekit Starter</span
