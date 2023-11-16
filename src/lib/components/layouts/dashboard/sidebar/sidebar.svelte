@@ -1,4 +1,5 @@
 <script>
+	import { page } from '$app/stores';
 	import {
 		Sidebar,
 		SidebarGroup,
@@ -17,12 +18,14 @@
 		FileEditSolid
 	} from 'flowbite-svelte-icons';
 	let spanClass = 'flex-1 ml-3 whitespace-nowrap';
-</script>
+	$: activeUrl = $page.url.pathname;
 
-<Sidebar class="h-full">
+</script>
+ 
+<Sidebar class="h-full" {activeUrl}>
 	<SidebarWrapper class="h-full">
 		<SidebarGroup>
-			<SidebarItem label="Dashboard">
+			<SidebarItem label="Dashboard" href="/dashboard">
 				<svelte:fragment slot="icon">
 					<ChartPieSolid
 						class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
