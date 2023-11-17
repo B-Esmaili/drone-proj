@@ -1,7 +1,9 @@
+import type { AuthRequest } from 'lucia-auth';
+
 declare global {
 	namespace App {
 		interface Locals {
-			auth: import('lucia').AuthRequest;
+			auth: AuthRequest<Lucia.Auth>;
 		}
 	}
 }

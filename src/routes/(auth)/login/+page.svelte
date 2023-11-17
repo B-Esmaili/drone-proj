@@ -43,7 +43,7 @@
 				/>
 			</div>
 			<div class="form-control mt-6">
-				<Button class="btn btn-primary">Login</Button>
+				<Button class="btn btn-primary" type="submit">Login</Button>
 			</div>
 			<div class="mt-2">
 				<p>No Account? <a href="/signup" class="text-blue-600 underline">SignUp</a></p>

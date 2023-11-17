@@ -1,6 +1,6 @@
 <script>
 	import { Card } from "flowbite-svelte";
-
+	export let data;
 </script>
 <svelte:head>
 	<title>Stable | Dashboard</title>

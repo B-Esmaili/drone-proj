@@ -18,5 +18,5 @@
 	<DropdownItem>Dashboard</DropdownItem>
 	<DropdownItem>Settings</DropdownItem>
 	<DropdownItem>Earnings</DropdownItem>
-	<DropdownItem slot="footer">Sign out</DropdownItem>
+	<DropdownItem slot="footer" href="/logout">Sign out</DropdownItem>
 </Dropdown>
