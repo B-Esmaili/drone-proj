@@ -21,7 +21,6 @@ export const load = (async () => {
 export const actions: Actions = {
     default: async ({ request, locals }) => {
         const form = await superValidate(request, schema);
-        console.log('POST', form);
 
         if (!form.valid) {
             return fail(400, { form });
