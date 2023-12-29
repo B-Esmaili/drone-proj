@@ -9,7 +9,6 @@ import {
 	time,
 	serial
 } from 'drizzle-orm/pg-core';
-import { number } from 'zod';
 
 export const user = pgTable('auth_user', {
 	id: varchar('id', {

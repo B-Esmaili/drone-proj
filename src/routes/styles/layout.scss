@@ -1,0 +1,42 @@
+@import url(./theme.scss);
+
+@font-face {
+	font-family: Vazir;
+	src: url('/fonts/Vazir-Medium.eot');
+	src: url('/fonts/Vazir-Medium.eot?#iefix')
+			format('embedded-opentype'),
+		url('/fonts/Vazir-Medium.woff2')
+			format('woff2'),
+		url('/fonts/Vazir-Medium.woff') format('woff'),
+		url('/fonts/Vazir-Medium.ttf')
+			format('truetype');
+	font-weight: 500;
+	font-style: normal;
+}
+
+body {
+	direction: rtl;
+	font-family: 'Vazir';
+}
+
+button {
+	font-family: var(--font-family);
+}
+
+.space-v-small {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+body::-webkit-scrollbar {
+	width: 0.5em;
+}
+
+body::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 6px var(--background-clor);
+}
+
+body::-webkit-scrollbar-thumb {
+	background-color: var(--secondary);
+	outline: 1px solid slategrey;
+}
