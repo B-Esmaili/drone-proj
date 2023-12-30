@@ -7,7 +7,9 @@ import {
 	text,
 	integer,
 	time,
-	serial
+	serial,
+	date,
+	timestamp
 } from 'drizzle-orm/pg-core';
 
 export const user = pgTable('auth_user', {
@@ -58,9 +60,9 @@ export const key = pgTable('auth_key', {
 
 export const project = pgTable('project', {
 	id: serial('id').primaryKey(),
-	location: text('location'),
-	serviceTypes: text('service_types').array(),
-	time: time('time'),
+	location: text('location').notNull(),
+	serviceTypes: text('service_types').array().notNull(),
+	time: timestamp('time').notNull(),
 	pilotId: varchar('pilot_id', {
 		length: 15
 	})
@@ -76,10 +78,10 @@ export const project = pgTable('project', {
 
 export const resource = pgTable('resource', {
 	id: serial('id').primaryKey(),
-	name: text('name'),
+	name: text('name').notNull(),
 	price: bigint('price', {
 		mode: 'number'
-	})
+	}).notNull()
 });
 
 export const invoice = pgTable('invoice', {
