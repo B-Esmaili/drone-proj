@@ -17,7 +17,6 @@
 		<div class="flex gap-2 items-center flex-row-reverse">
 			<UserArea />
 			<DarkMode btnClass={darkmodebtn} />
-			<Notification />
 		</div>
 	</div>
 </nav>

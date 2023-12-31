@@ -8,7 +8,7 @@ import { fail } from '@sveltejs/kit';
 const schema = z.object({
     email: z.string().email(),
     password: z.string(),
-    type:z.number()
+    type:z.number().default(1)
 });
 
 export const load = (async () => {

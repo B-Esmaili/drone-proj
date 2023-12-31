@@ -28,6 +28,7 @@ export const actions: Actions = {
         if (!form.valid) {
             return fail(400, { form });
         }
+        
         try {
             const key = await auth.useKey("email", form.data.email, form.data.password);
             const session = await auth.createSession(key.userId);

@@ -51,7 +51,7 @@
 					id="email"
 					name="email"
 					type="text"
-					placeholder="email"
+					placeholder="ایمیل"
 					class="input input-bordered"
 					bind:value={$form.email}
 				/>
@@ -62,7 +62,7 @@
 					id="password"
 					name="password"
 					type="text"
-					placeholder="password"
+					placeholder="کلمه عبور"
 					class="input input-bordered"
 					bind:value={$form.password}
 				/>
@@ -76,11 +76,11 @@
 				/>
 			</div>
 			<div class="form-control mt-6">
-				<Button class="btn btn-primary" type="submit">Sign Up</Button>
+				<Button class="btn btn-primary" type="submit"> ثبت نام</Button>
 			</div>
 		</form>
 		<div class="mt-2">
-			<p>قبلا حساب کاربری دارید؟? <a href="/login" class="text-blue-600 underline">ورود</a></p>
+			<p>قبلا حساب کاربری دارید؟ <a href="/login" class="text-blue-600 underline">ورود</a></p>
 		</div>
 	</Card>
 </div>
