@@ -38,11 +38,11 @@ export const formatDate = (
 		const min = new Intl.DateTimeFormat(
 			'fa-IR',
 			{
-				hour: '2-digit'
+				minute: '2-digit'
 			}
 		).format(d);
 
-		return `${hour} : ${min}`
+		return `${min} : ${hour}`
 	};
 
 	if (type ==="time"){
@@ -82,7 +82,7 @@ export const formatDate = (
 		formatted = `${weekday} ${day} ام ${month_name} ${year}`;
 
 		if (type === "date-time-semantic"){
-			formatted = `${formatted} ${getTime(date)}`;
+			formatted = `${formatted} &nbsp &nbsp ${getTime(date)}`;
 		}
 	} else {
 		formatted = new Intl.DateTimeFormat('fa-IR', {

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { Button, Card, Input, Label } from 'flowbite-svelte';
+	import { Button, Card, Input, Label, Select } from 'flowbite-svelte';
 	import type { PageData } from './$types';
 	import { superForm } from 'sveltekit-superforms/client';
 
@@ -8,6 +8,7 @@
 
 	// Client API:
 	const { form, message, enhance } = superForm(data.form, {
+		dataType: 'json',
 		onResult: (result) => {
 			if (result.result.status === 200) {
 				setTimeout(() => {
@@ -16,6 +17,21 @@
 			}
 		}
 	});
+
+	const hourOptions: any = [
+		{
+			name: 'پایلوت',
+			value: 1
+		},
+		{
+			name: 'مشتری',
+			value: 2
+		},
+		{
+			name: 'شهرداری',
+			value: 3
+		}
+	];
 </script>
 
 <svelte:head>
@@ -26,11 +42,11 @@
 <div class="h-screen flex items-center justify-center">
 	<Card class="w-full max-w-md bg-white">
 		<div class="flex justify-center">
-			<h1 class="text-2xl font-semibold">Create Account</h1>
+			<h1 class="text-2xl font-semibold">ایجاد حساب کاربری </h1>
 		</div>
 		<form method="POST" use:enhance>
 			<div class="mb-6">
-				<Label for="email" class="block mb-2">Email</Label>
+				<Label for="email" class="block mb-2">ایمیل</Label>
 				<Input
 					id="email"
 					name="email"
@@ -41,7 +57,7 @@
 				/>
 			</div>
 			<div class="mb-6">
-				<Label for="password" class="block mb-2">Password</Label>
+				<Label for="password" class="block mb-2">کلمه عبور</Label>
 				<Input
 					id="password"
 					name="password"
@@ -51,12 +67,20 @@
 					bind:value={$form.password}
 				/>
 			</div>
+			<div>
+				<Label for="type" class="block mb-2">نوع کاربر</Label>
+				<Select
+					items={hourOptions} 
+					bind:value={$form.type}
+					placeholder="نوع کاربری را انتخاب کنید"
+				/>
+			</div>
 			<div class="form-control mt-6">
 				<Button class="btn btn-primary" type="submit">Sign Up</Button>
 			</div>
 		</form>
 		<div class="mt-2">
-			<p>Already have an account? <a href="/login" class="text-blue-600 underline">LogIn</a></p>
+			<p>قبلا حساب کاربری دارید؟? <a href="/login" class="text-blue-600 underline">ورود</a></p>
 		</div>
 	</Card>
 </div>

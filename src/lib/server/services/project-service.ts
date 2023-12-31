@@ -1,4 +1,4 @@
-import { eq, inArray } from 'drizzle-orm';
+import { asc, desc, eq, inArray } from 'drizzle-orm';
 import { db } from '..';
 import { invoice, project } from '../schema';
 import { omit } from 'remeda';
@@ -23,7 +23,7 @@ export const getProjectById = async (projectId: number) => {
 
 	project.timeValue = {
 		hour: dateValue.getHours(),
-		minute: 10
+		minute: dateValue.getMinutes()
 	};
 
 	return project;
@@ -73,8 +73,18 @@ export const getProjectList = async () => {
 					resource: true
 				}
 			}
-		}
+		},
+		orderBy: [desc(project.id)]
 	});
 
 	return projects;
+};
+
+export const changeProjectStatus = async (pid: number, status: boolean) => {
+	return await db
+		.update(project)
+		.set({
+			confirmed: status
+		})
+		.where(eq(project.id, pid));
 };

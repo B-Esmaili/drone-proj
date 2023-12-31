@@ -7,7 +7,8 @@ import { fail } from '@sveltejs/kit';
 
 const schema = z.object({
     email: z.string().email(),
-    password: z.string()
+    password: z.string(),
+    type:z.number()
 });
 
 export const load = (async () => {
@@ -34,7 +35,8 @@ export const actions: Actions = {
                 },
                 attributes: {
                     email: form.data.email,
-                    password: form.data.password
+                    password: form.data.password,
+                    type : form.data.type
                 }
             });
         } catch {

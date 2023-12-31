@@ -118,9 +118,9 @@
 			{/if}
 		</Button>
 	</div>
-	<!-- <div style="direction:ltr">
+	<div style="direction:ltr">
 		<SuperDebug data={$form} />
-	</div> -->
+	</div>
 </form>
 
 <style lang="scss">

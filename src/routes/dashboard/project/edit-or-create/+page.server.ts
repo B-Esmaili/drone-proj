@@ -4,7 +4,7 @@ import { setError, superValidate, superValidateSync } from 'sveltekit-superforms
 import type { PageServerLoad } from './$types';
 import { z } from 'zod';
 import { createOrUpdateProject, getProjectById } from '$lib/server/services/project-service';
-import { fail } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 
 const projectSchema = z.object({
 	id : z.number().optional(),
@@ -75,7 +75,11 @@ export const actions = {
 		if (!result){
 			setError(form,"خطای سیستمی رخ داد");
 			return fail(500, {form})
-		}	
+		}
+		
+		if (!form.data.id){
+			throw redirect(307, "/dashboard/project/list")
+		}
 
 		return {
 			form
