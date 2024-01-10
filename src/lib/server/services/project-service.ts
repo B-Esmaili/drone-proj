@@ -1,10 +1,15 @@
-import { SQL, and, asc, desc, eq, inArray } from 'drizzle-orm';
+import { SQL, and, asc, desc, eq, inArray, arrayContains } from 'drizzle-orm';
 import { db } from '..';
 import { invoice, project } from '../schema';
 import { omit } from 'remeda';
+import type { User } from 'lucia-auth';
+import { UserType } from './user-service';
+import { ProjectStatus } from '$lib/models';
 
-export class ProjectFilter{
-	customer_id? : string
+export class ProjectFilter {
+	customer_id?: string;
+	pilotId?: string;
+	targetUser?: string[];
 }
 
 export const getProjectById = async (projectId: number) => {
@@ -67,8 +72,7 @@ export const createOrUpdateProject = async (model: any) => {
 	return true;
 };
 
-export const getProjectList = async (filter? : ProjectFilter) => {	
-
+export const getProjectList = async (filter?: ProjectFilter, user?: User) => {
 	const projects = await db.query.project.findMany({
 		where: (usr) => {
 			const params: SQL[] = [];
@@ -77,7 +81,15 @@ export const getProjectList = async (filter? : ProjectFilter) => {
 				params.push(eq(usr.customerId, filter.customer_id));
 			}
 
-			return and.apply(null,params);
+			if (filter?.pilotId) {
+				params.push(eq(usr.pilotId, filter.pilotId));
+			}
+
+			if (filter?.targetUser) {
+				params.push(arrayContains(usr.targetUsers, filter.targetUser));
+			}
+
+			return and.apply(null, params);
 		},
 		with: {
 			customer: true,
@@ -91,14 +103,92 @@ export const getProjectList = async (filter? : ProjectFilter) => {
 		orderBy: [desc(project.id)]
 	});
 
-	return projects;
+	return projects.map((p) => ({
+		...p,
+		isTaget: user && p.targetUsers.includes(user.userId)
+	}));
 };
 
-export const changeProjectStatus = async (pid: number, status: boolean) => {
-	return await db
+export const changeProjectStatus = async (
+	user: User,
+	pid: number,
+	status: number,
+	userMessage?: string
+) => {
+	const up = await getProjectById(pid);
+
+	if (!up) {
+		return false;
+	}
+
+	if (
+		user.type === UserType.Admin &&
+		![ProjectStatus.AdminReview, ProjectStatus.AdminFinalize].includes(up.status)
+	) {
+		return false;
+	}
+
+	if (user.type === UserType.Mayor && ![ProjectStatus.MunicipalReview].includes(up.status)) {
+		return false;
+	}
+
+	if (user.type === UserType.Pilot && ![ProjectStatus.PilotReview].includes(up.status)) {
+		return false;
+	}
+
+	if (
+		user.type === UserType.Customer &&
+		![ProjectStatus.CustomerPay, ProjectStatus.CustomerEdit].includes(up.status)
+	) {
+		return false;
+	}
+
+	let nextStatus: ProjectStatus | null = null;
+	let targetUsers: string[] = [];
+	let message: string | null = null;
+
+	if (user.type === UserType.Admin && up.status === ProjectStatus.AdminReview) {
+		nextStatus = status === 1 ? ProjectStatus.MunicipalReview : ProjectStatus.CustomerEdit;
+		targetUsers = status === 1 ? [`@${UserType.Mayor}`] : [`${up.customerId}`];
+	}
+
+	if (user.type === UserType.Admin && up.status === ProjectStatus.AdminFinalize) {
+		nextStatus = status === 1 ? ProjectStatus.Final : ProjectStatus.Cancel;
+		targetUsers = [`@${UserType.Admin}`];
+	}
+
+	if (user.type === UserType.Mayor) {
+		nextStatus = status === 1 ? ProjectStatus.PilotReview : ProjectStatus.AdminReview;
+		targetUsers = status === 1 ? [`@${UserType.Admin}`] : [`${up.pilotId}`];
+	}
+
+	if (user.type === UserType.Pilot) {
+		nextStatus = status === 1 ? ProjectStatus.CustomerPay : ProjectStatus.AdminReview;
+		targetUsers = status === 1 ? [`${up.customerId}`] : [`@${UserType.Admin}`];
+	}
+
+	if (user.type === UserType.Customer && up.status === ProjectStatus.CustomerPay) {
+		nextStatus = status === 1 ? ProjectStatus.AdminFinalize : ProjectStatus.Cancel;
+		targetUsers = [`@${UserType.Admin}`];
+	}
+
+	if (user.type === UserType.Customer && up.status === ProjectStatus.CustomerEdit) {
+		nextStatus = status === 1 ? ProjectStatus.AdminReview : ProjectStatus.Cancel;
+		targetUsers = [`@${UserType.Admin}`];
+	}
+
+	if (status === 0) {
+		message = userMessage ?? '';
+	}
+
+	await db
 		.update(project)
 		.set({
-			confirmed: status
+			status: nextStatus,
+			message,
+			targetUsers
 		})
 		.where(eq(project.id, pid));
+
+	return true;
 };

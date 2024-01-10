@@ -5,6 +5,7 @@ import type { PageServerLoad } from './$types';
 import { z } from 'zod';
 import { createOrUpdateProject, getProjectById } from '$lib/server/services/project-service';
 import { fail, redirect } from '@sveltejs/kit';
+import { ProjectStatus } from '$lib/models';
 
 const projectSchema = z.object({
 	id: z.number().optional(),
@@ -50,7 +51,7 @@ export const actions = {
 		const { user } = await event.locals.auth.validateUser();
 		const form = await superValidate(event, projectSchema);
 
-		if (!user){
+		if (!user) {
 			return fail(403);
 		}
 
@@ -67,7 +68,9 @@ export const actions = {
 			customerId: user.userId,
 			pilotId: form.data.pilotId,
 			time: dateTimeValue,
-			location: form.data.location
+			location: form.data.location,
+			status: ProjectStatus.AdminReview,
+			targetUsers: [`@${UserType.Admin}`]
 		};
 
 		if (form.data.id) {

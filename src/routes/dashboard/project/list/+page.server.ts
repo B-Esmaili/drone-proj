@@ -1,9 +1,12 @@
 import { getProjectList } from '$lib/server/services/project-service';
+import { UserType } from '$lib/server/services/user-service';
 import type { PageServerLoad } from './$types';
 
 export const load = (async () => {
 
-    const projects = await getProjectList();
+    const projects = await getProjectList({
+        
+    });
 
     return {
         projects

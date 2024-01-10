@@ -73,7 +73,11 @@ export const project = pgTable('project', {
 	})
 		.notNull()
 		.references(() => user.id),
-	confirmed: boolean('confirmed')
+	confirmed: boolean('confirmed'),
+	status : integer('status'),
+	targetUsers : varchar('target_users').array().notNull(),
+	message : varchar("message"),
+	desc : varchar("desc")
 });
 
 export const resource = pgTable('resource', {

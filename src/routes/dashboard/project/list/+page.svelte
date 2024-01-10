@@ -1,4 +1,6 @@
 <script lang="ts">
+	import ProjectStatusView from '$lib/components/ProjectStatusView.svelte';
+import { ProjectStatus } from '$lib/models';
 	import { formatDate, formatPrice } from '$lib/utils/utils';
 	import type { PageData } from './$types';
 	import {
@@ -15,6 +17,7 @@
 		Toggle
 
 	} from 'flowbite-svelte';
+	import ProjectStatusButtons from '../../../../lib/components/ProjectStatusButtons.svelte';
 
 	export let data: PageData;
 </script>
@@ -50,7 +53,13 @@
 				>
 				<TableBodyCell>{@html formatDate(project.time, "date-time-semantic")}</TableBodyCell>
 				<TableBodyCell>{project.location}</TableBodyCell>
-				<TableBodyCell> <Toggle checked={project.confirmed} disabled/> </TableBodyCell>
+				<TableBodyCell> 
+				{#if project.status === ProjectStatus.AdminReview}
+					<ProjectStatusButtons projectId={project.id}/>
+				 {:else}
+				    <ProjectStatusView value={project.status}/>
+				{/if}	
+				</TableBodyCell>
 				<TableBodyCell>
 					<Button href={`/dashboard/project/edit-or-create?id=${project.id}`}>ویرایش</Button>
 				</TableBodyCell>

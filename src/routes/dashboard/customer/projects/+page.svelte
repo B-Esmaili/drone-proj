@@ -11,6 +11,9 @@
 		TableHead,
 		TableHeadCell
 	} from 'flowbite-svelte';
+	import ProjectStatusView from '$lib/components/ProjectStatusView.svelte';
+	import { ProjectStatus } from '$lib/models';
+	import ProjectStatusButtons from '$lib/components/ProjectStatusButtons.svelte';
 	export let data: PageData;
 
 	const handleStatusChange = (project: any) => async (e) => {
@@ -35,17 +38,16 @@
 		const res = await resp.json();
 
 		if (res.ok) {
-            if (status){
-			  alert('Project Confirmed!');
-            }else{
-			  alert('Project Rejected!');
-            }
+			if (status) {
+				alert('Project Confirmed!');
+			} else {
+				alert('Project Rejected!');
+			}
 		} else {
 			alert('error occured!');
 		}
 	};
 </script>
-
 
 <div class="toolbar">
 	<Heading tag="h3">پروژه های من</Heading>
@@ -61,7 +63,7 @@
 		<TableHeadCell>منابع</TableHeadCell>
 		<TableHeadCell>زمان</TableHeadCell>
 		<TableHeadCell>مکان</TableHeadCell>
-		<TableHeadCell> وضعیت </TableHeadCell>
+		<TableHeadCell>وضعیت</TableHeadCell>
 	</TableHead>
 	<TableBody class="divide-y">
 		{#each data.projects as project}
@@ -75,13 +77,15 @@
 						</Badge>
 					{/each}</TableBodyCell
 				>
-				<TableBodyCell>{@html formatDate(project.time, "date-time-semantic")}</TableBodyCell>
+				<TableBodyCell>{@html formatDate(project.time, 'date-time-semantic')}</TableBodyCell>
 				<TableBodyCell>{project.location}</TableBodyCell>
-				<TableBodyCell
-					> 
-					
-					</TableBodyCell
-				>
+				<TableBodyCell>
+					{#if project.status === ProjectStatus.CustomerEdit}
+						<ProjectStatusButtons projectId={project.id} forwardLabel="در خواست بازبینی" backwardLabel="ابطال" />
+					{:else}
+						<ProjectStatusView value={project.status} />
+					{/if}
+				</TableBodyCell>
 			</TableBodyRow>
 		{/each}
 	</TableBody>
@@ -93,7 +97,7 @@
 		align-items: center;
 		justify-content: space-between;
 		& :global(a) {
-			width: 160px!important;
+			width: 160px !important;
 		}
 	}
 </style>
