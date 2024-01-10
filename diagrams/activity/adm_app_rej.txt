@@ -1,0 +1,10 @@
+@startuml
+:Admin reviews the project;
+if (Project Approved?) then (yes)
+  :System updates project status to approved;
+  :Notify Customer - Project approved;
+else (no)
+  :System updates project status to rejected;
+  :Notify Customer - Project rejected;
+endif
+@enduml

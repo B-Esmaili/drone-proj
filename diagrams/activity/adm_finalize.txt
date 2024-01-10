@@ -1,0 +1,5 @@
+@startuml
+:Admin initiates project finalization;
+:System performs finalization activities;
+:Notify relevant parties (e.g., Customer, Municipal, Pilot);
+@enduml

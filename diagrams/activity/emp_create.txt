@@ -1,0 +1,10 @@
+@startuml
+:Customer requests to create a project;
+if (Project Information Provided?) then (yes)
+  :System validates project details;
+  :Project created in the system;
+  :Notify Customer - Project created successfully;
+else (no)
+  :Notify Customer - Project information incomplete;
+endif
+@enduml

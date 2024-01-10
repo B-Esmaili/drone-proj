@@ -1,0 +1,60 @@
+@startuml
+
+
+class Project {
+    + id: int
+    + location: string
+    + time: timestamp
+    + endTime: timestamp
+    + pilotId: string
+    + customerId: string
+    + confirmed: boolean
+    + status: int
+    + targetUsers: string[]
+    + message: string
+    + desc: string
+
+    + getProjectById(pid: int): Project
+    + createOrUpdateProject(project: Project): void
+    + getProjectList(filter: ProjectFilter): Project[]
+    + changeProjectStatus(pid: int, status: int, message: string): bool
+}
+
+class ProjectFilter {
+    + customer_id?: string;
+    + pilotId?: string;
+    + targetUser?: string[];   
+}
+
+class User {
+       + location: string;
+       + Email : string; 
+       + password : string;
+       + type : int;
+       + displayName;
+
+       + getUserList(filter UserFilter)
+       + createUser(user : User)       
+}
+
+class UserFilter{
+    + type: UserType;
+}
+
+class Resource {
+    + id : int;
+    + name : string;
+    + price : int;
+
+    + getResourceList() : Resource[]
+}
+
+class Invoice {
+      + id : int;
+      + resourceId : int;
+      + projectId : int;
+      + price: int;
+}
+
+
+@enduml

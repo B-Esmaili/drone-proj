@@ -1,0 +1,19 @@
+@startuml
+:Customer requests to pay the project bill;
+if (Project ID Provided?) then (yes)
+  :System retrieves project details;
+  if (Project Found?) then (yes)
+    :Customer initiates payment;
+    :System processes payment;
+    if (Payment Successful?) then (yes)
+      :Notify Customer - Payment successful;
+    else (no)
+      :Notify Customer - Payment failed;
+    endif
+  else (no)
+    :Notify Customer - Project not found;
+  endif
+else (no)
+  :Notify Customer - Project ID not provided;
+endif
+@enduml

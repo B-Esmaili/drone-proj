@@ -1,0 +1,15 @@
+@startuml
+:Customer requests to update project information;
+if (Project ID Provided?) then (yes)
+  :System retrieves project details;
+  if (Project Found?) then (yes)
+    :Customer updates project information;
+    :System validates and updates project details;
+    :Notify Customer - Project information updated successfully;
+  else (no)
+    :Notify Customer - Project not found;
+  endif
+else (no)
+  :Notify Customer - Project ID not provided;
+endif
+@enduml
