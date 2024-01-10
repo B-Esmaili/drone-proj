@@ -1,25 +1,54 @@
 <script lang="ts">
-	import ProjectStatusView from '$lib/components/ProjectStatusView.svelte';
-	import { ProjectStatus } from '$lib/models';
+	import { Button, Checkbox, Heading, Toggle } from 'flowbite-svelte';
 	import { formatDate, formatPrice } from '$lib/utils/utils';
 	import type { PageData } from './$types';
 	import {
 		Badge,
-		Button,
-		Heading,
 		Table,
 		TableBody,
 		TableBodyCell,
 		TableBodyRow,
 		TableHead,
-		TableHeadCell,
-		Toggle
+		TableHeadCell
 	} from 'flowbite-svelte';
-	import ProjectStatusButtons from '../../../../lib/components/ProjectStatusButtons.svelte';
-
+	import ProjectStatusView from '$lib/components/ProjectStatusView.svelte';
+	import { ProjectStatus } from '$lib/models';
+	import ProjectStatusButtons from '$lib/components/ProjectStatusButtons.svelte';
 	export let data: PageData;
-</script>
 
+	const handleStatusChange = (project: any) => async (e) => {
+		const status = e.target.checked;
+		const pid = project.id;
+
+		const resp = await fetch('/api/project', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				status,
+				pid
+			})
+		});
+		if (resp.status !== 200) {
+			alert('error occured!');
+			return;
+		}
+
+		const res = await resp.json();
+
+		if (res.ok) {
+			if (status) {
+				alert('Project Confirmed!');
+			} else {
+				alert('Project Rejected!');
+			}
+		} else {
+			alert('error occured!');
+		}
+	};
+</script>
+ 
 <Table>
 	<TableHead>
 		<TableHeadCell>مشتری</TableHeadCell>
@@ -27,8 +56,7 @@
 		<TableHeadCell>منابع</TableHeadCell>
 		<TableHeadCell>زمان</TableHeadCell>
 		<TableHeadCell>مکان</TableHeadCell>
-		<TableHeadCell>وضعیت پروژه</TableHeadCell>
-		<TableHeadCell />
+		<TableHeadCell>وضعیت</TableHeadCell>
 	</TableHead>
 	<TableBody class="divide-y">
 		{#each data.projects as project}
@@ -45,20 +73,11 @@
 				<TableBodyCell>{@html formatDate(project.time, 'date-time-semantic')}</TableBodyCell>
 				<TableBodyCell>{project.location}</TableBodyCell>
 				<TableBodyCell>
-					{#if project.status === ProjectStatus.AdminReview}
+					{#if project.status === ProjectStatus.PilotReview}
 						<ProjectStatusButtons projectId={project.id} />
-					{:else if project.status === ProjectStatus.AdminFinalize}
-						<ProjectStatusButtons
-							projectId={project.id}
-							forwardLabel="تایید نهایی"
-							backwardLabel="ابطال"
-						/>
 					{:else}
 						<ProjectStatusView value={project.status} />
 					{/if}
-				</TableBodyCell>
-				<TableBodyCell>
-					<Button href={`/dashboard/project/edit-or-create?id=${project.id}`}>ویرایش</Button>
 				</TableBodyCell>
 			</TableBodyRow>
 		{/each}

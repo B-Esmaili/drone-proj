@@ -153,13 +153,13 @@ export const changeProjectStatus = async (
 	}
 
 	if (user.type === UserType.Admin && up.status === ProjectStatus.AdminFinalize) {
-		nextStatus = status === 1 ? ProjectStatus.Final : ProjectStatus.Cancel;
+		nextStatus = status === 1 ? ProjectStatus.Final : ProjectStatus.CancelByAdmin;
 		targetUsers = [`@${UserType.Admin}`];
 	}
 
 	if (user.type === UserType.Mayor) {
 		nextStatus = status === 1 ? ProjectStatus.PilotReview : ProjectStatus.AdminReview;
-		targetUsers = status === 1 ? [`@${UserType.Admin}`] : [`${up.pilotId}`];
+		targetUsers = status === 1 ? [`${up.pilotId}`] : [`@${UserType.Admin}`];
 	}
 
 	if (user.type === UserType.Pilot) {

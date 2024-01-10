@@ -80,8 +80,18 @@
 				<TableBodyCell>{@html formatDate(project.time, 'date-time-semantic')}</TableBodyCell>
 				<TableBodyCell>{project.location}</TableBodyCell>
 				<TableBodyCell>
-					{#if project.status === ProjectStatus.CustomerEdit}
-						<ProjectStatusButtons projectId={project.id} forwardLabel="در خواست بازبینی" backwardLabel="ابطال" />
+					{#if project.status && [ProjectStatus.CustomerEdit].includes(project.status)}
+						<ProjectStatusButtons
+							projectId={project.id}
+							forwardLabel="در خواست بازبینی"
+							backwardLabel="ابطال"
+						/>
+					{:else if ProjectStatus.CustomerPay === project.status}
+						<ProjectStatusButtons
+							projectId={project.id}
+							forwardLabel="پرداخت"
+							backwardLabel="ابطال"
+						/>
 					{:else}
 						<ProjectStatusView value={project.status} />
 					{/if}

@@ -20,6 +20,13 @@ export const load = (async ({ locals, request, url }) => {
 			throw redirect(307, '/dashboard/customer/projects');
 		}
 
+		if (
+			user.type === UserType.Pilot &&
+			!['/dashboard/pilot/projects'].includes(url.pathname)
+		) {
+			throw redirect(307, '/dashboard/pilot/projects');
+		}
+
 		return { user };
 	}
 

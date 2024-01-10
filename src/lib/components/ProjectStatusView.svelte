@@ -10,7 +10,9 @@
 		[ProjectStatus.CustomerPay]: 'منتظر پرداخت مشتری',
 		[ProjectStatus.CustomerEdit]: 'ویرایش توسط کاربر',
 		[ProjectStatus.AdminFinalize]: 'منتظر تایید نهایی توسط مدیر',
-		[ProjectStatus.Cancel]: 'لغو شده توسط کاربر'
+		[ProjectStatus.Cancel]: 'لغو شده توسط کاربر',
+		[ProjectStatus.Final]: 'تایید نهایی',
+		[ProjectStatus.CancelByAdmin]: 'ابطال توسط مدیر'
 	};
 </script>
 

@@ -6,5 +6,6 @@ export enum ProjectStatus {
 	CustomerEdit = 5,
 	AdminFinalize = 6,
 	Cancel = 7,
-	Final = 8
+	Final = 8,
+	CancelByAdmin = 9
 }

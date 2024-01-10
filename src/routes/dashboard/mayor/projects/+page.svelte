@@ -11,6 +11,9 @@
 		TableHead,
 		TableHeadCell
 	} from 'flowbite-svelte';
+	import { ProjectStatus } from '$lib/models';
+	import ProjectStatusButtons from '$lib/components/ProjectStatusButtons.svelte';
+	import ProjectStatusView from '$lib/components/ProjectStatusView.svelte';
 	export let data: PageData;
 
 	const handleStatusChange = (project: any) => async (e) => {
@@ -35,11 +38,11 @@
 		const res = await resp.json();
 
 		if (res.ok) {
-            if (status){
-			  alert('Project Confirmed!');
-            }else{
-			  alert('Project Rejected!');
-            }
+			if (status) {
+				alert('Project Confirmed!');
+			} else {
+				alert('Project Rejected!');
+			}
 		} else {
 			alert('error occured!');
 		}
@@ -71,14 +74,17 @@
 						</Badge>
 					{/each}</TableBodyCell
 				>
-				<TableBodyCell>{@html formatDate(project.time, "date-time-semantic")}</TableBodyCell>
+				<TableBodyCell>{@html formatDate(project.time, 'date-time-semantic')}</TableBodyCell>
 				<TableBodyCell>{project.location}</TableBodyCell>
-				<TableBodyCell
-					><Toggle
-						checked={project.confirmed}
-						on:change={handleStatusChange(project)}
-					/></TableBodyCell
-				>
+				<TableBodyCell>
+					{#if project.status === ProjectStatus.MunicipalReview}
+						<ProjectStatusButtons
+							projectId={project.id}
+						/>
+					{:else}
+						<ProjectStatusView value={project.status} />
+					{/if}
+				</TableBodyCell>
 			</TableBodyRow>
 		{/each}
 	</TableBody>
