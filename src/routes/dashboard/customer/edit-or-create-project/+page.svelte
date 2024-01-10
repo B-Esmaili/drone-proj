@@ -8,7 +8,10 @@
 		Label,
 		MultiSelect,
 		Select,
-		Spinner
+		Spinner,
+
+		Textarea
+
 	} from 'flowbite-svelte';
 	import type { PageData } from './$types';
 	import { formatPrice } from '$lib/utils/utils';
@@ -94,7 +97,7 @@
 		{/if}
 	</Label>
 	<Label for="time">
-		زمان
+		زمان شروع
 		<div class="date-time-picker">
 			<div>
 				<DatePicker bind:value={$form.dateValue} />
@@ -104,7 +107,21 @@
 			</div>
 		</div>
 		{#if $errors.dateValue}
-			<Helper class="mt-2" color="red">لطفا زمان را انتخاب کنید</Helper>
+			<Helper class="mt-2" color="red">لطفا زمان شورع را انتخاب کنید</Helper>
+		{/if}
+	</Label>
+	<Label for="time">
+		زمان پایان
+		<div class="date-time-picker">
+			<div>
+				<DatePicker bind:value={$form.endDateValue} />
+			</div>
+			<div>
+				<TimePicker bind:value={$form.endTimeValue} />
+			</div>
+		</div>
+		{#if $errors.endDateValue}
+			<Helper class="mt-2" color="red">لطفا زمان پایان را انتخاب کنید</Helper>
 		{/if}
 	</Label>
 	<Label for="location">
@@ -112,8 +129,17 @@
 		<div>
 			<Input bind:value={$form.location} />
 		</div>
-		{#if $errors.dateValue}
-			<Helper class="mt-2" color="red">لطفا زمان را انتخاب کنید</Helper>
+		{#if $errors.location}
+			<Helper class="mt-2" color="red">لطفا مکان را انتخاب کنید</Helper>
+		{/if}
+	</Label>
+	<Label for="location">
+		توضیحات
+		<div>
+			<Textarea bind:value={$form.desc} />
+		</div>
+		{#if $errors.desc}
+			<Helper class="mt-2" color="red">لطفا توضیحات را وارد کنید</Helper>
 		{/if}
 	</Label>
 	<br />
@@ -127,6 +153,8 @@
 				ذخیره
 			{/if}
 		</Button>
+
+		<Button color="alternative" href="/dashboard/customer/projects"> بازگشت به لیست </Button>
 	</div>
 	<!-- <div style="direction:ltr">
 		<SuperDebug data={$form} />

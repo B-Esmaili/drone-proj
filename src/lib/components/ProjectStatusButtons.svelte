@@ -5,7 +5,7 @@
 	import { CheckCircleSolid } from 'flowbite-svelte-icons';
 	import { slide } from 'svelte/transition';
 	export let projectId: number;
-	export let onResult: (result: boolean) => void | undefined = undefined;
+	export let onResult: (result: boolean) => any | undefined = undefined;
 	let result: boolean | null = null;
 
 	export let forwardLabel = 'تایید';
@@ -37,4 +37,5 @@
 <ButtonGroup>
 	<Button color="green" on:click={handleConfirm(1)}>{forwardLabel}</Button>
 	<Button color="red" on:click={handleConfirm(0)}>{backwardLabel}</Button>
+	<slot />
 </ButtonGroup>

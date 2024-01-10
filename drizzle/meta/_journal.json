@@ -5,71 +5,8 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1689711209556,
-      "tag": "0000_tense_thunderbolts",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1703752330345,
-      "tag": "0001_neat_callisto",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1703759735304,
-      "tag": "0002_redundant_the_order",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "5",
-      "when": 1703759989675,
-      "tag": "0003_neat_lightspeed",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "5",
-      "when": 1703760236212,
-      "tag": "0004_wandering_titanium_man",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "5",
-      "when": 1703842758435,
-      "tag": "0005_slow_hobgoblin",
-      "breakpoints": true
-    },
-    {
-      "idx": 6,
-      "version": "5",
-      "when": 1703961691708,
-      "tag": "0006_glorious_dreaming_celestial",
-      "breakpoints": true
-    },
-    {
-      "idx": 7,
-      "version": "5",
-      "when": 1703961709311,
-      "tag": "0007_tough_lilandra",
-      "breakpoints": true
-    },
-    {
-      "idx": 8,
-      "version": "5",
-      "when": 1703961836640,
-      "tag": "0008_parallel_the_initiative",
-      "breakpoints": true
-    },
-    {
-      "idx": 9,
-      "version": "5",
-      "when": 1704888963198,
-      "tag": "0009_lazy_trish_tilby",
+      "when": 1704903075972,
+      "tag": "0000_shocking_alice",
       "breakpoints": true
     }
   ]

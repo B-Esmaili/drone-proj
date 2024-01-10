@@ -10,9 +10,16 @@ import { ProjectStatus } from '$lib/models';
 const projectSchema = z.object({
 	id: z.number().optional(),
 	location: z.string(),
+	desc: z.string(),
 	serviceTypes: z.array(z.string()),
 	dateValue: z.date(),
 	timeValue: z.object({
+		hour: z.number().default(0),
+		minute: z.number().default(0),
+		second: z.number().default(0)
+	}),
+	endDateValue: z.date(),
+	endTimeValue: z.object({
 		hour: z.number().default(0),
 		minute: z.number().default(0),
 		second: z.number().default(0)
@@ -63,15 +70,24 @@ export const actions = {
 		dateTimeValue.setHours(form.data.timeValue.hour);
 		dateTimeValue.setMinutes(form.data.timeValue.minute);
 
+		const endTimeValue = new Date(form.data.endDateValue);
+		dateTimeValue.setHours(form.data.endTimeValue.hour);
+		dateTimeValue.setMinutes(form.data.endTimeValue.minute);
+
 		const project: any = {
 			resourceIds: form.data.resourceIds,
 			customerId: user.userId,
 			pilotId: form.data.pilotId,
 			time: dateTimeValue,
+			endTime : endTimeValue,
 			location: form.data.location,
-			status: ProjectStatus.AdminReview,
-			targetUsers: [`@${UserType.Admin}`]
+			desc : form.data.desc,			
 		};
+		
+		if (!form.data.id){
+		    project.status = ProjectStatus.AdminReview;
+ 			project.targetUsers = [`@${UserType.Admin}`];
+		}
 
 		if (form.data.id) {
 			project.id = form.data.id;

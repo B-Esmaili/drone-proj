@@ -28,9 +28,9 @@
 	>
 		<Sidebar />
 	</div>
-	<div class="flex-1 md:ms-64 p-6">
+	<div class="flex-1 md:ms-64 p-6" style="width:calc(100% - 16rem)">
 		<Card class="w-full max-w-none">
-			<slot />
+				<slot />
 		</Card>
 	</div>
 </div>

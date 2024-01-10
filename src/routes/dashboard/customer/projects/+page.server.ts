@@ -12,7 +12,7 @@ export const load = (async (event) => {
 
 	const projects = await getProjectList({
 		customer_id: user?.userId,
-	});
+	},user);
 
 	return {
 		projects

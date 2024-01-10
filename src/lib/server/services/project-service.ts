@@ -35,6 +35,14 @@ export const getProjectById = async (projectId: number) => {
 		minute: dateValue.getMinutes()
 	};
 
+	project.endDateValue = project.endTime;
+	const endDateValue = new Date(project.endTime);
+
+	project.timeValue = {
+		hour: endDateValue.getHours(),
+		minute: endDateValue.getMinutes()
+	};
+
 	return project;
 };
 
@@ -105,6 +113,8 @@ export const getProjectList = async (filter?: ProjectFilter, user?: User) => {
 
 	return projects.map((p) => ({
 		...p,
+		message: p.message ?? '',
+		desc: p.desc ?? '-',
 		isTaget: user && p.targetUsers.includes(user.userId)
 	}));
 };

@@ -63,6 +63,7 @@ export const project = pgTable('project', {
 	location: text('location').notNull(),
 	serviceTypes: text('service_types').array().notNull(),
 	time: timestamp('time').notNull(),
+	endTime: timestamp('end_time').notNull(),
 	pilotId: varchar('pilot_id', {
 		length: 15
 	})
