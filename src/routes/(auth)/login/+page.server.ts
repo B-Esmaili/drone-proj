@@ -33,7 +33,7 @@ export const actions: Actions = {
             const key = await auth.useKey("email", form.data.email, form.data.password);
             const session = await auth.createSession(key.userId);
             locals.auth.setSession(session);
-        } catch {
+        } catch(err) {
             // invalid username/password
             return fail(400);
         }

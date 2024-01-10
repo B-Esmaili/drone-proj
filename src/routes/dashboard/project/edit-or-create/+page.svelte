@@ -36,6 +36,15 @@
 		value: id
 	}));
 
+	// let total = 0;
+
+	// $: {
+	// 	debugger
+	// 	if (resourceOptions.length){
+	// 		total = resourceOptions.reduce((p,c)=> p + parseInt(c.value) ,0)
+	// 	}
+	// }
+
 	const { form, enhance, errors } = superForm(data.form, {
 		dataType: 'json',
 		onSubmit: () => {
@@ -108,6 +117,7 @@
 		{/if}
 	</Label>
 	<br />
+	<!-- {total} -->
 	<div>
 		<Button primary load type="submit">
 			{#if saving}
@@ -118,9 +128,9 @@
 			{/if}
 		</Button>
 	</div>
-	<div style="direction:ltr">
+	<!-- <div style="direction:ltr">
 		<SuperDebug data={$form} />
-	</div>
+	</div> -->
 </form>
 
 <style lang="scss">

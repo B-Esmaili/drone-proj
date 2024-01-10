@@ -22,7 +22,7 @@ export const load = (async () => {
 export const actions: Actions = {
     default: async ({ request, locals }) => {
         const form = await superValidate(request, schema);
-
+        
         if (!form.valid) {
             return fail(400, { form });
         }
@@ -36,7 +36,8 @@ export const actions: Actions = {
                 attributes: {
                     email: form.data.email,
                     password: form.data.password,
-                    type : form.data.type
+                    type : form.data.type,
+                    //displayName : form.data.email
                 }
             });
         } catch {

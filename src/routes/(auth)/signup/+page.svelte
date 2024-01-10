@@ -62,6 +62,7 @@
 					id="password"
 					name="password"
 					type="text"
+					autocomplete="off"
 					placeholder="کلمه عبور"
 					class="input input-bordered"
 					bind:value={$form.password}
