@@ -1,7 +1,11 @@
-import { asc, desc, eq, inArray } from 'drizzle-orm';
+import { SQL, and, asc, desc, eq, inArray } from 'drizzle-orm';
 import { db } from '..';
 import { invoice, project } from '../schema';
 import { omit } from 'remeda';
+
+export class ProjectFilter{
+	customer_id? : string
+}
 
 export const getProjectById = async (projectId: number) => {
 	const project: any = await db.query.project.findFirst({
@@ -63,8 +67,18 @@ export const createOrUpdateProject = async (model: any) => {
 	return true;
 };
 
-export const getProjectList = async () => {
+export const getProjectList = async (filter? : ProjectFilter) => {	
+
 	const projects = await db.query.project.findMany({
+		where: (usr) => {
+			const params: SQL[] = [];
+
+			if (filter?.customer_id) {
+				params.push(eq(usr.customerId, filter.customer_id));
+			}
+
+			return and.apply(null,params);
+		},
 		with: {
 			customer: true,
 			pilot: true,

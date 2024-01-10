@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Checkbox, Heading, Toggle } from 'flowbite-svelte';
+	import { Button, Checkbox, Heading, Toggle } from 'flowbite-svelte';
 	import { formatDate, formatPrice } from '$lib/utils/utils';
 	import type { PageData } from './$types';
 	import {
@@ -46,7 +46,11 @@
 	};
 </script>
 
-<Heading tag="h3">پروژه های من</Heading>
+
+<div class="toolbar">
+	<Heading tag="h3">پروژه های من</Heading>
+	<Button href="/dashboard/customer/edit-or-create-project">ایجاد پروژه جدید</Button>
+</div>
 
 <br />
 
@@ -57,7 +61,7 @@
 		<TableHeadCell>منابع</TableHeadCell>
 		<TableHeadCell>زمان</TableHeadCell>
 		<TableHeadCell>مکان</TableHeadCell>
-		<TableHeadCell>تایید شده</TableHeadCell>
+		<TableHeadCell> وضعیت </TableHeadCell>
 	</TableHead>
 	<TableBody class="divide-y">
 		{#each data.projects as project}
@@ -74,12 +78,22 @@
 				<TableBodyCell>{@html formatDate(project.time, "date-time-semantic")}</TableBodyCell>
 				<TableBodyCell>{project.location}</TableBodyCell>
 				<TableBodyCell
-					><Toggle
-						checked={project.confirmed}
-						on:change={handleStatusChange(project)}
-					/></TableBodyCell
+					> 
+					
+					</TableBodyCell
 				>
 			</TableBodyRow>
 		{/each}
 	</TableBody>
 </Table>
+
+<style lang="scss">
+	.toolbar {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		& :global(a) {
+			width: 160px!important;
+		}
+	}
+</style>

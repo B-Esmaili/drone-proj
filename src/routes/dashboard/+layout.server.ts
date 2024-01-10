@@ -15,7 +15,7 @@ export const load = (async ({ locals, request, url }) => {
 
 		if (
 			user.type === UserType.Customer &&
-			!['/dashboard/customer/projects'].includes(url.pathname)
+			!['/dashboard/customer/projects' , '/dashboard/customer/edit-or-create-project'].includes(url.pathname)
 		) {
 			throw redirect(307, '/dashboard/customer/projects');
 		}
