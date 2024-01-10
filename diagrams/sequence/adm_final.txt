@@ -1,0 +1,9 @@
+@startuml
+actor Admin
+participant ProjectApprovalSystem
+participant Employer
+
+Admin -> ProjectApprovalSystem: Finalize Project
+ProjectApprovalSystem -> Employer: Mark as Done
+
+@enduml

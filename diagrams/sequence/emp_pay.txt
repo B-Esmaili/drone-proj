@@ -1,0 +1,16 @@
+@startuml
+actor Employer
+participant ProjectApprovalSystem
+participant Admin
+
+Employer -> ProjectApprovalSystem: Pay Project
+activate ProjectApprovalSystem
+
+alt Pay Project
+    ProjectApprovalSystem -> Admin: Pay the bill and send to admin for final confirmation.
+else Cancel Project
+    ProjectApprovalSystem -> Admin: Cancel Project
+end
+
+deactivate ProjectApprovalSystem
+@enduml

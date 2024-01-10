@@ -1,0 +1,56 @@
+@startuml
+left to right direction
+
+  actor Employer as emp
+  actor Admin as adm
+  actor Municipal as mun
+  actor Pilot as pil
+
+skinparam usecase {
+BackgroundColor<< Main >> YellowGreen
+ActorFontName Courier
+}
+
+package "Project Approval System" as system {
+   usecase "Create Project" as create << Main >>
+   usecase "Approve By Admin" as adm_app  
+   usecase "Reject By Admin" as adm_rej  
+   usecase "Reject By Municipal" as mun_rej
+   usecase "Approve By Municipal" as mun_app
+   usecase "Approve By Municipal" as mun_app
+   usecase "Approve By Pilot" as pil_app
+   usecase "Reject By Pilot" as pil_rej
+   usecase "Pay The Bill" as emp_pay
+   usecase "Final Confirmation" as adm_final
+
+   emp --> create #line:green;line.bold;text:green : Employee Creates the project
+     create --> adm #line:green;line.bold;text:green  : Project sent for approval 
+
+   adm --> adm_rej  : Admin rejects project with description    
+     adm_rej --> emp   : Project is returned to employe  
+
+   adm --> adm_app  : Admin Approves the project
+     adm_app --> mun : Project Sent  to municipal
+
+   mun --> mun_rej : Municipal rejects the project
+     mun_rej --> adm : project is returned to admin
+
+   mun --> mun_app : Municipal approves the project
+     mun_app --> pil : project is sent to pilot
+
+   pil --> pil_rej : Pilot rejects the project
+     pil_rej --> adm : project is returned to municipal
+  
+   pil --> pil_app : Pilot approves the project
+      pil_app --> emp : project is sent back to employer 
+
+   emp --> emp_pay : Employer pays the bill
+      emp_pay --> adm : project is sent to admin
+
+   adm --> adm_final
+     adm_final --> adm : Admin Finalize the project
+}
+
+
+
+@enduml

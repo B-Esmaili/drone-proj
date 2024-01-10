@@ -1,0 +1,17 @@
+@startuml
+!theme bluegray
+actor Employer
+participant ProjectApprovalSystem
+participant Admin
+
+Employer -> ProjectApprovalSystem: Create Project
+ProjectApprovalSystem -> Admin: Submit for Approval
+Admin -> ProjectApprovalSystem: Review Project
+
+alt Project Rejected
+    ProjectApprovalSystem -> Employer: Send back for Editing
+else Project Approved
+    ProjectApprovalSystem -> ProjectApprovalSystem: Forward to Municipal
+end
+
+@enduml
