@@ -28,13 +28,13 @@
 <Sidebar class="h-full" {activeUrl}>
 	<SidebarWrapper class="h-full">
 		<SidebarGroup>
-			<SidebarItem label="داشبورد" href="/dashboard">
+			<!-- <SidebarItem label="داشبورد" href="/dashboard">
 				<svelte:fragment slot="icon">
 					<ChartPieSolid
 						class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
 					/>
 				</svelte:fragment>
-			</SidebarItem>
+			</SidebarItem> -->
 			{#if isMayor}
 				<SidebarItem label="پروژه ها" href="/dashboard/mayor/projects">
 					<svelte:fragment slot="icon">

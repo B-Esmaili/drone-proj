@@ -13,6 +13,14 @@ export const load = (async ({ locals, request, url }) => {
 			throw redirect(307, '/dashboard/mayor/projects');
 		}
 
+
+		if (
+			user.type === UserType.Admin &&
+			!['/dashboard/project/list'].includes(url.pathname)
+		) {
+			throw redirect(307, '/dashboard/project/list');
+		}
+
 		if (
 			user.type === UserType.Customer &&
 			!['/dashboard/customer/projects' , '/dashboard/customer/edit-or-create-project'].includes(url.pathname)
