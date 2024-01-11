@@ -8,7 +8,8 @@ import { fail } from '@sveltejs/kit';
 const schema = z.object({
     email: z.string().email(),
     password: z.string(),
-    type:z.number().default(1)
+    type:z.number().default(1),
+    displayName : z.string()
 });
 
 export const load = (async () => {
@@ -37,10 +38,11 @@ export const actions: Actions = {
                     email: form.data.email,
                     password: form.data.password,
                     type : form.data.type,
-                    //displayName : form.data.email
+                    display_name : form.data.displayName
                 }
             });
-        } catch {
+        } catch(err) {
+            console.log(err)
             // username taken
             return fail(400);
         }

@@ -76,6 +76,14 @@
 					placeholder="نوع کاربری را انتخاب کنید"
 				/>
 			</div>
+			<br/>
+			<div>
+				<Label for="type" class="block mb-2">  نام نمایشی </Label>
+				<Input					
+					bind:value={$form.displayName}
+					placeholder="نوع کاربری را انتخاب کنید"
+				/>
+			</div>
 			<div class="form-control mt-6">
 				<Button class="btn btn-primary" type="submit"> ثبت نام</Button>
 			</div>
