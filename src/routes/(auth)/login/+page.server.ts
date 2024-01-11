@@ -7,7 +7,7 @@ import { auth } from "$lib/server/lucia";
 
 const schema = z.object({
     email: z.string().email(),
-    password: z.string()
+    password: z.string().min(1)
 });
 
 export const load = (async ({ locals }) => {

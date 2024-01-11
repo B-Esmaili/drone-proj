@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { Button, Card, Input, Label, Select } from 'flowbite-svelte';
+	import { Button, Card, Helper, Input, Label, Select } from 'flowbite-svelte';
 	import type { PageData } from './$types';
 	import { superForm } from 'sveltekit-superforms/client';
 
 	export let data: PageData;
 
 	// Client API:
-	const { form, message, enhance } = superForm(data.form, {
+	const { form, message, enhance, errors } = superForm(data.form, {
 		dataType: 'json',
 		onResult: (result) => {
 			if (result.result.status === 200) {
@@ -42,7 +42,7 @@
 <div class="h-screen flex items-center justify-center">
 	<Card class="w-full max-w-md bg-white">
 		<div class="flex justify-center">
-			<h1 class="text-2xl font-semibold">ایجاد حساب کاربری </h1>
+			<h1 class="text-2xl font-semibold">ایجاد حساب کاربری</h1>
 		</div>
 		<form method="POST" use:enhance>
 			<div class="mb-6">
@@ -55,37 +55,43 @@
 					class="input input-bordered"
 					bind:value={$form.email}
 				/>
+				{#if $errors.email}
+					<Helper class="mt-2" color="red">لطفا ایمیل را وارد کنید</Helper>
+				{/if}
 			</div>
 			<div class="mb-6">
 				<Label for="password" class="block mb-2">کلمه عبور</Label>
 				<Input
 					id="password"
 					name="password"
-					type="text"
+					type="password"
 					autocomplete="off"
 					placeholder="کلمه عبور"
 					class="input input-bordered"
 					bind:value={$form.password}
 				/>
+				{#if $errors.password}
+					<Helper class="mt-2" color="red">لطفا کلمه عبور را وارد کنید</Helper>
+				{/if}
 			</div>
 			<div>
 				<Label for="type" class="block mb-2">نوع کاربر</Label>
 				<Select
-					items={hourOptions} 
+					items={hourOptions}
 					bind:value={$form.type}
 					placeholder="نوع کاربری را انتخاب کنید"
 				/>
 			</div>
-			<br/>
+			<br />
 			<div>
-				<Label for="type" class="block mb-2">  نام نمایشی </Label>
-				<Input					
-					bind:value={$form.displayName}
-					placeholder="نوع کاربری را انتخاب کنید"
-				/>
+				<Label for="type" class="block mb-2">نام نمایشی</Label>
+				<Input bind:value={$form.displayName} placeholder="نوع کاربری را انتخاب کنید" />
+				{#if $errors.displayName}
+					<Helper class="mt-2" color="red">لطفا نام نمایشی را وارد کنید</Helper>
+				{/if}
 			</div>
 			<div class="form-control mt-6">
-				<Button class="btn btn-primary" type="submit"> ثبت نام</Button>
+				<Button class="btn btn-primary" type="submit">ثبت نام</Button>
 			</div>
 		</form>
 		<div class="mt-2">

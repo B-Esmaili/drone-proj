@@ -7,9 +7,9 @@ import { fail } from '@sveltejs/kit';
 
 const schema = z.object({
     email: z.string().email(),
-    password: z.string(),
+    password: z.string().min(1),
     type:z.number().default(1),
-    displayName : z.string()
+    displayName : z.string().min(1)
 });
 
 export const load = (async () => {
