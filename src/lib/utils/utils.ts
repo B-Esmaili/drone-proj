@@ -1,7 +1,8 @@
 export const formatPrice = (price: number | string) => {
 	return (price ?? 0).toLocaleString('fa-IR', {
 		style: 'currency',
-		currency: 'IRR'
+		currency: 'IRR',
+		minimumFractionDigits : 0
 	});
 };
 

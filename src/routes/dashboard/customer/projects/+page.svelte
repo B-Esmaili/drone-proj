@@ -15,6 +15,7 @@
 	import { ProjectStatus } from '$lib/models';
 	import ProjectStatusButtons from '$lib/components/ProjectStatusButtons.svelte';
 	import { invalidateAll } from '$app/navigation';
+	import { reduce } from 'remeda';
 	export let data: PageData;
 
 	const handleStatusChange = (project: any) => async (e) => {
@@ -55,8 +56,6 @@
 	<Button href="/dashboard/customer/edit-or-create-project">ایجاد پروژه جدید</Button>
 </div>
 
-<br />
-
 <Table hoverable={true}>
 	<TableHead>
 		<TableHeadCell>مشتری</TableHeadCell>
@@ -74,13 +73,23 @@
 			<TableBodyRow color={project.isTaget ? 'yellow' : undefined}>
 				<TableBodyCell>{project.customer.displayName}</TableBodyCell>
 				<TableBodyCell>{project.pilot.displayName}</TableBodyCell>
-				<TableBodyCell tdClass="w-2"
-					>{#each project.invoices as invoice}
-						<Badge color="green"
-							>{invoice.resource.name} ({formatPrice(invoice.resource.price)})
-						</Badge>
-					{/each}</TableBodyCell
-				>
+				<TableBodyCell tdClass="w-2">
+					<div>
+						{#each project.invoices as invoice}
+							<Badge color="green"
+								>{invoice.resource.name} ({formatPrice(invoice.resource.price)})
+							</Badge>
+						{/each}
+					</div>
+					<div
+						style="display: flex; align-items:center;justify-content:center;padding:0.5em;font-size:18px;"
+					>
+						{#if true}
+							{@const total = project.invoices.reduce((p, c) => p + c.price ?? 0, 0)}
+							{formatPrice(total)}
+						{/if}
+					</div>
+				</TableBodyCell>
 				<TableBodyCell>{@html formatDate(project.time, 'date-time-semantic')}</TableBodyCell>
 				<TableBodyCell>{@html formatDate(project.endTime, 'date-time-semantic')}</TableBodyCell>
 				<TableBodyCell>{project.location}</TableBodyCell>
@@ -128,5 +137,7 @@
 		& :global(a) {
 			width: 160px !important;
 		}
+		clear: both;
+		margin-bottom: 1em;
 	}
 </style>
